@@ -7,5 +7,4 @@
 				roomID = '".$_REQUEST['roomID']."'"; 
 	$statement = $db->prepare($sql);    
     $statement->execute();
-    print_r($sql);
 ?>

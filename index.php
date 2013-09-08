@@ -1,10 +1,11 @@
 <html>
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+	<link rel="stylesheet" type="text/css" href="css/global.css">
 </head>
 
 <body>
-	<h1>COLLABTUBE</h1>	
+	<a href='localhost/collabtube'><h1>COLLABTUBE</h1></a>	
 	
 	<h3>Create New Room</h3>
 	<form action="create.php" method="POST" enctype="multipart/form-data"> 

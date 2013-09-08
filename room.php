@@ -1,6 +1,6 @@
 <html>
 <head>
-	<script src='js/jquery-1.9.1.js'></script>
+	<link rel="stylesheet" type="text/css" href="css/global.css">
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
 	<script src="http://malsup.github.com/jquery.form.js"></script>
@@ -113,34 +113,49 @@
 		
 		
 	</script>
+	<style>
+		.postTd {width:30px;}
+		.nameTd {width:250px;}
+		.confirmTd {width:150px;}
+		tr {width:430px;}
+	</style>
 </head>
 <body>
-	<h1>COLLABTUBE</h1><br>
+	
+	<div class="navbar navbar-default">
+	<h1>&emsp;&emsp;<a href='localhost/collabtube'>COLLABTUBE</a></h1> <br>
+	</div>
 	<?php
 		session_start();
 		$_SESSION['ids'] = array();
 	?>
 	
+	<table border=0 class='centered' cellpadding=20><tr>
 	
-	<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
-
-   
-	<br>
-	<button id='prev'> &lt; Prev </button> &emsp; <button id='next'> Next &gt; </button>
+    <td> <button id='prev' class="btn btn-primary"> &lt; Prev </button> </td>
+    <td> <div id="player"></div> </td>	
+	<td> <button id='next' class="btn btn-primary"> Next &gt; </button> </td>
+	
+	
+	</tr></table>
+	
 	<br>
 	
-	<table border=0>
-		<tr><td>
+	<table border=0 class='centered' cellpadding=10>
 			<form id='theForm' method='POST' action='post.php'>
-				user: <input type='text' name='user'>
-				post: <input type='text' name='post' id='postinput'>
-				<input type='hidden' value='<?php echo $_REQUEST['id']; ?>' name='roomID'>
-				<input type='submit' value='Post'>
+				<tr>
+					<td colspan=3 style='vertical-align:top'>Post:<textarea name='post' id='postinput' class="form-control" rows=4 cols=50></textarea></td>
+				</tr>
+				<tr>
+					<td class='nameTd'>Name: <input type='text' name='user' class="form-control" placeholder='Your name here' size=5></td>
+					<input type='hidden' value='<?php echo $_REQUEST['id']; ?>' name='roomID' id='roomID'>
+					<td class='postTd'><input type='submit' value='Post' class="btn btn-info"></td>
+					<td class='confirmTd'>
+						<div id='submitted' class="btn btn-success disabled">Submitted!</div>
+					</td>
+				</tr>
 			</form>
-		</td><td>
-			<div id='submitted' style='display:inline'>Submitted!</div>
-		</td></tr>
+		
 	</table>
 	
 	<br>

@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="css/global.css">
 <?php
 	$db = new PDO('mysql:dbname=collabtube;host=localhost','root','k9is1337!');
 	
@@ -7,7 +8,7 @@
     $result = $statement->fetchAll();
      
     if ( empty($result) ) {
-		echo "<h1>COLLABTUBE</h1><br>";
+		echo "<a href='localhost/collabtube'><h1>COLLABTUBE</h1></a><br>";
 		
 		echo "<h2>This room does not exist! You can: </h2>";
 		
