@@ -4,61 +4,8 @@
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
 	<script src="http://malsup.github.com/jquery.form.js"></script>
-	<script>
-		
-		window.playlist = window.playlist || new Array() ;
-		
-		var loop = function() {
-			setTimeout( function() {
-				var id = +new Date;
-				$('#allposts').prepend('<div id='+id+'></div>');
-				$('#'+id).load('loader.php', function() {
-					window.tempList = new Array();
-					if ( $('#'+id).html().length == 3 ) // Empty
-						$('#'+id).remove();
-					else {
-						var urlP = /watch\?v=(\w{11})/g ;
-						var match;
-						while ( (match = urlP.exec ($('#'+id).html())) != null )
-							window.tempList.push(match[1]);
-					}
-					while (window.tempList.length > 0) 
-						window.playlist.push(window.tempList.pop());
-				});
-				loop();
-			}, 5000);
-		}
-		
-		$(document).ready(function() {
-			
-			$('#submitted').hide();
-			
-			loop();			
-		
-			$('#theForm').ajaxForm(function() { 
-				$('#submitted').show();
-				$('#submitted').fadeOut(3000);
-				$('#postinput').val('');
-			});         
-		
-		});
-		
-		
-		
-		
-	</script>
-</head>
-<body>
-	<?php
-		session_start();
-		$_SESSION['ids'] = array();
-	?>
 	
-	
-	<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
-
-    <script>
+	 <script>
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
@@ -92,7 +39,7 @@
       //var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-          player.loadVideoById(window.playlist.shift(), 0, "large");
+          player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
       //    done = true;
         }
       }
@@ -100,9 +47,87 @@
       function stopVideo() {
         player.stopVideo();
       }
+      
+      
     </script>
 	
 	
+	<script>
+		
+		window.playlist = window.playlist || new Array() ;
+		
+		var loop = function() {
+			setTimeout( function() {
+				var id = +new Date;
+				$('#allposts').prepend('<div id='+id+'></div>');
+				$('#'+id).load('loader.php', function() {
+					window.tempList = new Array();
+					if ( $('#'+id).html().length == 3 ) // Empty
+						$('#'+id).remove();
+					else {
+						var urlP = /watch\?v=(\w{11})/g ;
+						var match;
+						while ( (match = urlP.exec ($('#'+id).html())) != null )
+							window.tempList.push(match[1]);
+					}
+					while (window.tempList.length > 0) 
+						window.playlist.push(window.tempList.pop());
+				});
+				loop();
+			}, 5000);
+		}
+		
+		$(document).ready(function() {
+			
+			window.nowPlaying = 0;
+			
+			$('#submitted').hide();
+			
+			loop();			
+		
+			$('#theForm').ajaxForm(function() { 
+				$('#submitted').show();
+				$('#submitted').fadeOut(3000);
+				$('#postinput').val('');
+			});         
+		
+			  $('#prev').click(function() {
+				  console.log(player);
+				  window.nowPlaying -= 2;
+				  if (window.nowPlaying < 0) 
+					  alert ('There are no more videos before this'); 
+				  else
+					  player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
+			  });
+			
+			  $('#next').click(function() {
+				  if (window.nowPlaying >= window.playlist.length)
+					  alert ('There are no more videos after this');
+				  else
+					  player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
+			  });
+			  
+		  });
+				
+		
+		
+		
+	</script>
+</head>
+<body>
+	<?php
+		session_start();
+		$_SESSION['ids'] = array();
+	?>
+	
+	
+	<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+   
+	<br>
+	<button id='prev'> &lt; Prev </button> &emsp; <button id='next'> Next &gt; </button>
+	<br>
 	
 	<table border=0>
 		<tr><td>
