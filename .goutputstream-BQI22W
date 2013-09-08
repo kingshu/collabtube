@@ -13,14 +13,14 @@
 				var id = +new Date;
 				$('#allposts').prepend('<div id='+id+'></div>');
 				$('#'+id).load('loader.php', function() {
-					window.tempList = new Array();
 					if ( $('#'+id).html().length == 3 )
 						$('#'+id).remove();
 					else {
 						var urlP = /watch\?v=(\w{11})/g ;
 						var match;
 						while ( (match = urlP.exec ($('#'+id).html())) != null ) {
-							window.tempList.push(match[1]);
+							if (window.firstRun)
+							window.playlist.unshift(match[1]) ;
 						}
 					}
 				});
@@ -29,6 +29,8 @@
 		}
 		
 		$(document).ready(function() {
+			
+			window.firstRun = true;
 			
 			$('#submitted').hide();
 			
