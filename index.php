@@ -14,15 +14,16 @@
 				$('#allposts').prepend('<div id='+id+'></div>');
 				$('#'+id).load('loader.php', function() {
 					window.tempList = new Array();
-					if ( $('#'+id).html().length == 3 )
+					if ( $('#'+id).html().length == 3 ) // Empty
 						$('#'+id).remove();
 					else {
 						var urlP = /watch\?v=(\w{11})/g ;
 						var match;
-						while ( (match = urlP.exec ($('#'+id).html())) != null ) {
+						while ( (match = urlP.exec ($('#'+id).html())) != null )
 							window.tempList.push(match[1]);
-						}
 					}
+					while (window.tempList.length > 0) 
+						window.playlist.push(window.tempList.pop());
 				});
 				loop();
 			}, 5000);
@@ -31,8 +32,6 @@
 		$(document).ready(function() {
 			
 			$('#submitted').hide();
-			
-		//	console.log($('.post'));
 			
 			loop();			
 		
