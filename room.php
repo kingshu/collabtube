@@ -114,10 +114,16 @@
 		
 	</script>
 	<style>
+		table {table-layout:fixed;}
 		.postTd {width:30px;}
 		.nameTd {width:250px;}
 		.confirmTd {width:150px;}
 		tr {width:430px;}
+		td {break-word:word-wrap;}
+		.pushtop {vertical-align:top;}
+		.container {width:90%;}
+		.formTd {width:500px;}
+		.feedTd {width:700px;}
 	</style>
 </head>
 <body>
@@ -140,26 +146,31 @@
 	</tr></table>
 	
 	<br>
-	
-	<table border=0 class='centered' cellpadding=10>
-			<form id='theForm' method='POST' action='post.php'>
-				<tr>
-					<td colspan=3 style='vertical-align:top'>Post:<textarea name='post' id='postinput' class="form-control" rows=4 cols=50></textarea></td>
-				</tr>
-				<tr>
-					<td class='nameTd'>Name: <input type='text' name='user' class="form-control" placeholder='Your name here' size=5></td>
-					<input type='hidden' value='<?php echo $_REQUEST['id']; ?>' name='roomID' id='roomID'>
-					<td class='postTd'><input type='submit' value='Post' class="btn btn-info"></td>
-					<td class='confirmTd'>
-						<div id='submitted' class="btn btn-success disabled">Submitted!</div>
-					</td>
-				</tr>
-			</form>
+	<table border=0 class='centered container' cellpadding=20><tr><td class='pushtop'>
 		
-	</table>
+		<table border=0 class='centered' cellpadding=10>
+				<form id='theForm' method='POST' action='post.php'>
+					<tr>
+						<td colspan=3 style='vertical-align:top'>Post:<textarea name='post' id='postinput' class="form-control" rows=4 cols=50></textarea></td>
+					</tr>
+					<tr>
+						<td class='nameTd'>Name: <input type='text' name='user' class="form-control" placeholder='Your name here' size=5></td>
+						<input type='hidden' value='<?php echo $_REQUEST['id']; ?>' name='roomID' id='roomID'>
+						<td class='postTd'><input type='submit' value='Post' class="btn btn-info"></td>
+						<td class='confirmTd'>
+							<div id='submitted' class="btn btn-success disabled">Submitted!</div>
+						</td>
+					</tr>
+				</form>
+			
+		</table>
 	
-	<br>
-	<div id='allposts'>
-	</div>
+	</td><td>
+	
+		<div id='allposts'>
+		</div>
+	
+	</td></tr>
+	</table>
 </body>
 </html>
