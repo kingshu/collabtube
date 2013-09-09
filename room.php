@@ -34,13 +34,14 @@
       }
 
       // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      //var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-          player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
-      //    done = true;
+			if (window.nowPlaying < window.playlist.length) {
+				player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
+			}
+			else {
+				waitForNewPost();
+			}
         }
       }
       
@@ -48,6 +49,14 @@
         player.stopVideo();
       }
       
+      var waitForNewPost = function () {
+		  setTimeout( function () {
+			  if (window.nowPlaying >= window.playlist.length)
+				waitForNewPost();
+			  else
+				player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
+		  }, 5000);
+	  }
       
     </script>
 	
@@ -65,7 +74,7 @@
 					if ( $('#'+id).html().length == 3 ) // Empty
 						$('#'+id).remove();
 					else {
-						var urlP = /watch\?v=(\w{11})/g ;
+						var urlP = /watch\?v=([\w\-]{11})/g ;
 						var match;
 						while ( (match = urlP.exec ($('#'+id).html())) != null )
 							window.tempList.push(match[1]);
