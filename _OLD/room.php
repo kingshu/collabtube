@@ -4,6 +4,7 @@
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
 	<script src="http://malsup.github.com/jquery.form.js"></script>
+	<script src='http://code.jquery.com/ui/1.10.3/jquery-ui.js'></script>
 	
 	 <script>
       // 2. This code loads the IFrame Player API code asynchronously.
@@ -36,9 +37,8 @@
       // 5. The API calls this function when the player's state changes.
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-			window.nowPlaying++ ;
 			if (window.nowPlaying < window.playlist.length) {
-				player.loadVideoById(window.playlist[window.nowPlaying], 0, "large");
+				player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
 			}
 			else {
 				waitForNewPost();
@@ -55,7 +55,7 @@
 			  if (window.nowPlaying >= window.playlist.length)
 				waitForNewPost();
 			  else
-				player.loadVideoById(window.playlist[++window.nowPlaying], 0, "large");
+				player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
 		  }, 5000);
 	  }
       
@@ -89,7 +89,7 @@
 		
 		$(document).ready(function() {
 			
-			window.nowPlaying = -1;
+			window.nowPlaying = 0;
 			
 			$('#submitted').hide();
 			
@@ -102,28 +102,19 @@
 			});         
 		
 			  $('#prev').click(function() {
-				  window.nowPlaying --;
-				  if (window.nowPlaying < 0) {
+				  console.log(player);
+				  window.nowPlaying -= 2;
+				  if (window.nowPlaying < 0) 
 					  alert ('There are no more videos before this'); 
-					  window.nowPlaying++ ;
-				  }
 				  else
-					  player.loadVideoById(window.playlist[window.nowPlaying], 0, "large");
+					  player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
 			  });
 			
 			  $('#next').click(function() {
-				  window.nowPlaying++ ;
-				  if (window.nowPlaying >= window.playlist.length) {
+				  if (window.nowPlaying >= window.playlist.length)
 					  alert ('There are no more videos after this');
-					  window.nowPlaying--;
-				  }
 				  else
-					  player.loadVideoById(window.playlist[window.nowPlaying], 0, "large");
-			  });
-			  
-			  $('.close').click(function() {
-				  $('#roomIDdiv').fadeOut('slow');
-				  $('#roomIDNav').fadeIn('slow');
+					  player.loadVideoById(window.playlist[window.nowPlaying++], 0, "large");
 			  });
 			  
 		  });
@@ -141,33 +132,19 @@
 		td {break-word:word-wrap;}
 		.pushtop {vertical-align:top;}
 		.container {width:90%;}
-		.roomIDdiv {width:75%;margin-left:auto;margin-right:auto;}
 		.formTd {width:500px;}
 		.feedTd {width:700px;}
-		.rAlign {text-align:right;vertical-align:bottom;}
 	</style>
 </head>
 <body>
 	
+	<div class="navbar navbar-default">
+	<h1>&emsp;&emsp;<a href='localhost/collabtube'>COLLABTUBE</a></h1> <br>
+	</div>
 	<?php
 		session_start();
 		$_SESSION['ids'] = array();
 	?>
-	
-	<div class="navbar navbar-default">
-		<table border=0 width=75% class='centered'><tr><td>
-			<a class="navbar-brand" href='http://ct-kingshu2.rhcloud.com/'><h1>COLLABTUBE</h1></a> 
-		</td><td class='rAlign'>
-			<button type="button" class="btn btn-warning disabled" id="roomIDNav" style="display:none"> Room <?php echo $_REQUEST['id']; ?> </button>
-		</td></tr></table>
-		<br>
-	</div>
-	
-	
-	<div class='alert alert-dismissable alert-warning roomIDdiv' id='roomIDdiv'>
-		<button type='button' class='close' data-dismiss='alert'>&times;</button>
-		<h4><br>&emsp;&emsp;Hello, this is Room number: <?php echo $_REQUEST['id']; ?>. Give this number to your friends and ask them to join!<br><br></h4>
-	</div>
 	
 	<table border=0 class='centered' cellpadding=20><tr>
 	

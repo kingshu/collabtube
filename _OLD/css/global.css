@@ -53,13 +53,11 @@ body {
 }
 
 a:focus {
-  text-decoration:none;
   outline: thin dotted;
 }
 
 a:active,
 a:hover {
-  text-decoration:none;
   outline: 0;
 }
 

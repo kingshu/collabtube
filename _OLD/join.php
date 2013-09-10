@@ -1,7 +1,5 @@
 <?php
-
-	require 'connector.php';
-	$db = mysqlConnector();
+	$db = new PDO('mysql:dbname=collabtube;host=localhost','root','k9is1337!');
 	
 	$sql = "SELECT * FROM rooms WHERE roomID = '".$_REQUEST['roomID']."' LIMIT 1" ; // Auto increment   
 	$statement = $db->prepare($sql);    
@@ -28,9 +26,7 @@
 		echo "		</script>";
 				
 		echo "		<div class='navbar navbar-default'>";
-		echo " 			<table border=0 width=75% class='centered'><tr><td>";
-		echo "				<a class='navbar-brand' href='http://ct-kingshu2.rhcloud.com'><h1>COLLABTUBE</h1></a>";
-		echo "			</td></tr></table><br>";
+		echo "		<h1>&emsp;&emsp;<a href='localhost/collabtube'>COLLABTUBE</a></h1> <br>";
 		echo "		</div>";
 				
 		echo "		<table class='centered container' border=0 cellpadding=25>";
