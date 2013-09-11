@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+
+  "name": "CollabTube",
+  "description": "CollabTube helper extension",
+  "version": "1.0",
+
+  "permissions": [
+     "tabs", "notifications"
+  ],
+  "background": {
+    "scripts": ["bg.js"]
+  },
+ "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": ["jquery.js","mainScript.js"]
+    }
+  ],
+  "web_accessible_resources":["jquery-2.0.3.min.map"]
+}
