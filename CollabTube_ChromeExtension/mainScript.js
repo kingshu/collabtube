@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener(
   });
 
 if(document.URL.indexOf("www.youtube.com/watch?v") != -1) {
-	$('#masthead-upload-button-group').append("&emsp;<button id='addToCT' class='yt-uix-button-default yt-uix-button'>Add to CollabTube</button>&nbsp;");
+	$('#watch-headline-title').append("<button id='addToCT' style='float:right' class='yt-uix-button-default yt-uix-button'>Add to CollabTube</button>");
 	$('#addToCT').click( function() {
 		chrome.runtime.sendMessage( {addButton:"clicked"}, function(response) {
 		  console.log(response);
