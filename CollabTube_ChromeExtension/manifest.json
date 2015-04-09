@@ -3,17 +3,18 @@
 
   "name": "CollabTube",
   "description": "CollabTube helper extension",
-  "version": "1.0",
+  "version": "2.0",
 
   "permissions": [
-     "tabs", "notifications"
+     "tabs", 
+     "notifications"
   ],
   "background": {
     "scripts": ["bg.js"]
   },
  "content_scripts": [
     {
-      "matches": ["http://*/*"],
+      "matches": ["https://*.youtube.com/watch?v*", "http://ct-kingshu2.rhcloud.com/room*"],
       "js": ["jquery.js","mainScript.js"]
     }
   ],
